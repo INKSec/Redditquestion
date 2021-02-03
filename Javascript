@@ -1,0 +1,111 @@
+
+//----------------------------------------------------------------Aufgabe 2 Erschaffe einen Div Tag, wenn die Seite geladen ist.
+
+function myFunction() {
+    var aufgabe1 = document.createElement("article");
+    document.getElementById("containerAufgabe1").appendChild(aufgabe1);
+    var x = "Browser Name: " + navigator.appName;
+    aufgabe1.innerHTML = x;
+}
+    
+
+// ---------------------------------------------------------------Aufgabe 3 Cookie setzen und auslesen
+
+function setCookie(cname,cvalue,exdays) {
+   var d = new Date();
+   d.setTime(d.getTime() + (exdays*24*60*60*1000));
+   var expires = "expires=" + d.toGMTString();
+   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+ }
+ 
+ function getCookie(cname) {
+   var name = cname + "=";
+   var decodedCookie = decodeURIComponent(document.cookie);
+   var ca = decodedCookie.split(';');
+   for(var i = 0; i < ca.length; i++) {
+     var c = ca[i];
+     while (c.charAt(0) == ' ') {
+       c = c.substring(1);
+     }
+     if (c.indexOf(name) == 0) {
+       return c.substring(name.length, c.length);
+     }
+   }
+   return "";
+ }
+ 
+ function checkCookie() {
+   var user=getCookie("username");
+   if (user != "") {
+     alert("Welcome again " + user);
+   } else {
+      user = prompt("Please enter your name:","");
+      if (user != "" && user != null) {
+        setCookie("username", user, 30);
+      }
+   }
+ }
+
+
+// Wenn Zeit letztes Besuchsdatum ausgeben
+
+function cookie() {
+   var aufgabe2 = document.createElement("article");
+   document.getElementById("containerAufgabe2").appendChild(aufgabe2);
+   
+   
+}
+
+
+
+
+// -------------------------------------------------------------------Aufgabe 4
+
+var pattern = new Image();
+         
+function animate() {
+   pattern.src = '/Weblabor2/bilder/bild1jpg.jpg';
+   setInterval(drawShape, 100);
+}
+
+function drawShape() {
+   
+   
+   var canvas = document.getElementById('aufgabe4animation');
+   
+   // Ausführung nur wenn Canvas unterstützt wird
+   if (canvas.getContext) {
+   
+      // Mit getContext wird Canvas zum "malen" verwendet
+      var ctx = canvas.getContext('2d');
+      
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+      ctx.save();
+      ctx.translate(150,150); 
+      
+      var time = new Date(); 
+      ctx.rotate( ((2*Math.PI)/6)*time.getSeconds() + ( (2*Math.PI)/6000)*time.getMilliseconds() );
+      ctx.translate(0,28.5);
+      ctx.drawImage(pattern,-3.5,-3.5);
+      ctx.restore();
+   } else {
+      alert('You need Safari or Firefox 1.5+ to see this demo.');
+   }
+}
+
+// ------------------------------------------------------------------------Aufgabe 7
+
+function reset() {
+    var a1 = "";
+    document.getElementById("username").value = a1;
+  } 
+  
+
+
+
+
+
+
+
+    
