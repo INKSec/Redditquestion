@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Hallo</title>
+    <link rel="stylesheet" type="text/css" href="css\style.css">
+    
+    <!-----------------------------------------------------------Aufgabe 1--ERLEDIGT-->
+    <script src="skripte/skripte.js"></script>
+    <!------------------------------------------------------------Aufgabe 10--ERLEDIGT-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    
+</head>
+<body onload="myFunction(), cookie(), animate(), checkCookie()">
+    <header>
+        <h1>Ich lernen Java</h1>
+        <p>Fürs Leben und nicht für die Klausur</p>
+    </header>
+
+    <navbar>
+        <a href="">Startseite</a>
+        <a href="">Seite 1</a>
+        <a href="">Seite 2</a>
+    </navbar>
+
+    <!------------------------------------------------------------------------------------------Aufgabe 2--Erledigt-->
+    
+    <article id="containerAufgabe1">
+        <p>Aufgabe 2</p>
+    </article>   
+        
+    <!-----------------------------------------------------------------------------------------Aufgabe 3-- Erledigt (Wenn Zeit verbessern)-->
+
+    <article id="containerAufgabe2">
+        <p>Aufgabe 3</p>
+        <p>Siehe Seitenaufruf</p>
+    </article>
+
+
+    <!------------------------------------------------------------------------------------------Aufgabe 4--Erledigt-->
+    
+    <p>Aufgabe 4</p>
+    <canvas id="aufgabe4animation" width="200" height="100" style="border:1px solid #000000;">
+
+    </canvas>
+
+    <!------------------------------------------------------------------------------------------Aufgabe 5--Erledigt-->
+
+    
+    
+   
+
+    <article>
+        <!--Container für Fehlermeldungen-->  
+        <ul id="fehlermeldungen">
+            
+    
+        </ul>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" spellcheck="false">
+            <br />
+        <label for="password">Password</label>
+        <input type="password" id="password">
+            <br />
+        <button type="submit" id="btn-submit">Login</button>
+        <button type="button" onclick="reset()">Reset</button>
+        
+        
+    </article>
+
+    <script>
+        // So kann ich mit den HTML Tags in Java arbeiten
+        const form = {
+            username: document.getElementById("username"),
+            passwort: document.getElementById("password"),
+            submit: document.getElementById("btn-submit"),
+            messages: document.getElementById("fehlermeldungen")
+        };
+        // Event wird ausgeführt, wennd er btn geklickt wird
+        form.submit.addEventListener('click', () => {
+            // -------------------------------------------------------------------------------------------Aufgabe 8 ------------------------------------------
+            console.log('Knopf gedrückt');
+            // Ajax Objekt
+            const request = new XMLHttpRequest();
+
+            // Wird ausgeführt, wenn der Knopf gedrückt wird
+            request.onload = () => {
+                
+                let responseObject = null;
+
+                try {
+                    //Versucht die Serverantwort in Javaskript umzuwandeln
+                    responseObject = JSON.parse(request.responseText);
+                } catch (e) {
+                    console.error("Could not parse JSON!");
+                }
+
+                if(responseObject) {
+                    handleResponse(responseObject);
+                }
+            };
+
+            const requestData = `username=${form.username.value}&password=${form.passwort.value}`; 
+            // Übertragene Daten
+            console.log(requestData);
+            
+            // Der Server erwartet eine Website in der Form zu sehen
+            request.open('post', 'js_ajax.php');
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.send(requestData);
+        });
+        // Umgang mit der Antwort
+        function handleResponse (responseObject) {
+            console.log(responseObject);
+            if (responseObject.ok) {
+                location.href = "index.html";
+                console.log(responseObject);//Löschen
+            } else {
+                //Leert die ungeordnete Liste
+                while (form.messages.firstChild) {
+                    form.messages.removeChild(form.messages.firstChild);
+                }
+                responseObject.messages.forEach((message) => {
+                    const li = document.createElement('li');
+                    li.textContent = message;
+                    form.messages.appendChild(li);
+                });
+
+                form.messages.style.display = "block";
+                    
+                
+            }
+        }
+
+    </script>
+        <!--------------------------------------------------------------------------------------------Aufgabe 6-->
+        
+    
+   
+</body>
+</html>
